@@ -16,4 +16,15 @@ var pcap = require('pcap'),
 
 pcap_session.on('packet', function (raw_packet) {
     print(raw_packet);
+    //if the packet is an arp request
 });
+
+var dash-button = [];
+modules.exports = dash-button;
+
+var registered_dash-button = {};
+
+dash-button.register = function(mac_address, callback){
+    
+}
+
