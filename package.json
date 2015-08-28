@@ -1,0 +1,30 @@
+{
+  "name": "dash-button",
+  "version": "0.0.1",
+  "description": "a library for integrating amazon dash button presses into a node project",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hortinstein/dash-button"
+  },
+  "keywords": [
+    "amazon",
+    "amazon-dash",
+    "dash",
+    "button",
+    "arp"
+  ],
+  "author": "hortinstein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hortinstein/dash-button/issues"
+  },
+  "homepage": "https://github.com/hortinstein/dash-button",
+  "dependencies": {
+    "arpjs": "^1.0.0",
+    "pcap": "^2.0.1"
+  }
+}
