@@ -10,21 +10,21 @@ var sendarp = function(){
   });  
 };
 
-setTimeout(sendarp, 10000); 
+setInterval(sendarp, 100); 
 var pcap = require('pcap'),
-    pcap_session = pcap.createSession('eth0', filter);
+    pcap_session = pcap.createSession('eth0');
 
 pcap_session.on('packet', function (raw_packet) {
-    print(raw_packet);
+    console.log(raw_packet);
     //if the packet is an arp request
 });
 
-var dash-button = [];
-modules.exports = dash-button;
+// var dash_button = {};
+// modules.exports = dash_button;
 
-var registered_dash-button = {};
+// var registered_dash_button = {};
 
-dash-button.register = function(mac_address, callback){
+// dash_button.register = function(mac_address, callback){
     
-}
+// }
 
