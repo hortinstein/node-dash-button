@@ -18,8 +18,8 @@ pcap_session.on('packet', function (raw_packet) {
     var packet = pcap.decode.packet(raw_packet);
     if (packet.payload.ethertype === 2054){
       console.log("arp detected");
-      console.log(packet.payload.sender_ha)
-      console.log(packet.payload.target_ha)
+      console.log(packet.payload.payload.sender_ha)
+      console.log(packet.payload.payload.target_ha)
     }
     arp.table(function(err, table){
       console.log(table);
