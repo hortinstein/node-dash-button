@@ -10,13 +10,20 @@ var sendarp = function(){
   });  
 };
 
-setInterval(sendarp, 100); 
+setInterval(sendarp, 1000); 
 var pcap = require('pcap'),
-    pcap_session = pcap.createSession('eth0');
+    pcap_session = pcap.createSession();
 
 pcap_session.on('packet', function (raw_packet) {
-    console.log(raw_packet);
-    //if the packet is an arp request
+    var packet = pcap.decode.packet(raw_packet);
+    if (packet.payload.ethertype === 2054){
+      console.log("arp detected");
+      console.log(packet.payload.sender_ha)
+      console.log(packet.payload.target_ha)
+    }
+    arp.table(function(err, table){
+      console.log(table);
+    });
 });
 
 // var dash_button = {};
