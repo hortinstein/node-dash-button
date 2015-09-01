@@ -1,3 +1,5 @@
+CURRENTLY NON FUCNTIONAL
+
 ![Blank Dash](http://i.imgur.com/V26dxTl.png)
 # dash-button
 
