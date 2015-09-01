@@ -14,20 +14,19 @@ dash_button.hex_to_int_array = function(hex){
     return (int_array); 
 }
 
-dash_macs = {};
+dash_macs = [];
 
-dash_button.register = function(mac_address, callback) {
-    dash_button[mac_address] = callback;
+dash_button.register = function(mac_address) {
+    dash_button.push(mac_address);
 };
 
 pcap_session.on('packet', function(raw_packet) {
     var packet = pcap.decode.packet(raw_packet);
     if(packet.payload.ethertype === 2054) {
-    	console.log("arp detected");
-	        console.log(packet.payload.payload.sender_ha);
-	        console.log(packet.payload.payload.target_ha);
     	for (var i in dash_macs){
-	    	if(_.isEqual(packet.payload.payload.sender_ha, dash_button.hex_to_int_array(dash_macs))){
+    		console.log(dash_button.hex_to_int_array(dash_macs[i]));
+    		console.log(packet.payload.payload.sender_ha);
+	    	if(_.isEqual(packet.payload.payload.sender_ha, dash_button.hex_to_int_array(dash_macs[i]))) {
 	        	console.log("arp detected");
 	            console.log(packet.payload.payload.sender_ha);
 	            console.log(packet.payload.payload.target_ha);

@@ -18,13 +18,10 @@ startTests = function() {
         
         done();
     });
-    setInterval(sendarp, 100); 
     it('should recognize an arp request', function(done) {
-       
-        dash_button.register("8f:3f:20:33:54:44", function(e,r){
-           console.log(r); 
-           done();
-        });
+    	setInterval(sendarp, 100);    
+        dash_button.register("8f:3f:20:33:54:44");
+        done();
         
     });
     it('should correctly convert string hex to decimal array', function(done) {
