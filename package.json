@@ -21,7 +21,7 @@
     "arp"
   ],
   "author": "hortinstein",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hortinstein/node-dash-button/issues"
   },
