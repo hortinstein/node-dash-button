@@ -10,6 +10,7 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 ### Contents
 -----------------
 - [Installation Instructions](#installation-instructions)
+- [First Time Dash Setup](first-time-dash-setup)
 - [Find a Dash](#find-a-dash)
 - [Example Usage](#example-usage)
 - [To do](#to-do)
@@ -21,6 +22,9 @@ The following should work for ubuntu, the main thing for any os is getting the l
 $ sudo apt-get install libpcap-dev
 $ npm install node-dash-button 
 ```
+#### First Time Dash Setup 
+
+Follow Amazon's instructions to configure your button to send messages when you push them but not actually order anything. When you get a Dash button, Amazon gives you a list of setup instructions to get going. Just follow this list of instructions, but don’t complete the final step (#3 I think) **Do not select a product, just exit the app**.
 
 #### Find a Dash
 To find a dash on your network, run the following from the node-dash-button directory in node_modules:
