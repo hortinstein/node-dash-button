@@ -6,6 +6,11 @@ sudo: true
 before_install:
   - npm update -q
 
+addons:
+  apt:
+    packages:
+    - libpcap-dev
+
 node_js:
   - "0.12"
   - "0.11"
