@@ -1,4 +1,4 @@
-![Blank Dash](http://i.imgur.com/V26dxTl.png)
+![Blank Dash](http://i.imgur.com/PP0CJ3s.png?1)
 # node-dash-button
 
 Place it. *Hack it.* Press it. ~~Get it.~~
