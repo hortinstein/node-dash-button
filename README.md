@@ -7,19 +7,22 @@ This module was inspired by [this fantastic article by Edward Bensen](https://me
 
 It is a simple library that will allow you to utilize a dash button to emit an event.  I am using the same strategy of watching for dash generated ARP requests as the article above.
 
-Contents
+### Contents
 -----------------
 - [Installation Instructions](#installation-instructions)
-- [Usage](#usage)
+- [Find a Dash](#find-a-dash)
+- [Example Usage](#example-usage)
+- [To do](#to-do)
  
-# Installation Instructions (ubuntu): 
+#### Installation Instructions
+The following should work for ubuntu, the main thing for any os is getting the libpcap dependancy.
 ``` sh
 # dependancy on libpcap for reading packets
 $ sudo apt-get install libpcap-dev
 $ npm install node-dash-button 
 ```
 
-# Find a Dash
+#### Find a Dash
 To find a dash on your network, run the following from the node-dash-button directory in node_modules:
 ``` sh
 # you may need to use sudo due to libpcap running in permiscuous mode
@@ -31,7 +34,7 @@ It will watch for new arp requests on your network.  There may be several arp re
 
 ![hw address](http://i.imgur.com/BngokPC.png)
 
-# Example Usage:
+#### Example Usage:
 ``` js
 //warning this may trigger multiple times for one press
 //...usually triggers twice based on testing for each press
@@ -42,6 +45,6 @@ dash.on("detected", function (){
 });
 ```
 
-# Todo
+#### To do
 - Throttling
-- Change API?
+- API revisions
