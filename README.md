@@ -1,6 +1,6 @@
 ![Blank Dash](http://i.imgur.com/PP0CJ3s.png?1)
 # node-dash-button
-
+[![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/hortinstein/node-dash-button)
 Place it. *Hack it.* Press it. ~~Get it.~~
 
 This module was inspired by [this fantastic article by Edward Bensen](https://medium.com/@edwardbenson/how-i-hacked-amazon-s-5-wifi-button-to-track-baby-data-794214b0bdd8).
