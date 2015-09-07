@@ -40,13 +40,17 @@ var register = function(mac_address) {
     var readStream = new stream.Readable({
         objectMode: true
     });
+    var just_emitted = false;
     pcap_session.on('packet', function(raw_packet) {
         var packet = pcap.decode.packet(raw_packet); //decodes the packet
         if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
-            if(_.isEqual(packet.payload.payload.sender_ha.addr, 
+            if(!just_emitted && 
+                _.isEqual(packet.payload.payload.sender_ha.addr, 
                          hex_to_int_array(mac_address))) {
                 readStream.emit('detected');
-            }	
+                just_emitted = true;
+                setTimeout(function () { just_emitted = false; }, 3000);
+            }
         }
     });
     return readStream;
