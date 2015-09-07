@@ -1,8 +1,3 @@
-var pcap = require('pcap'),
-    pcap_session = pcap.createSession();
-
-var _ = require("underscore");
-
 // converts a string: "8f:3f:20:33:54:44"
 // to a numeric array: [ 143, 63, 32, 51, 84, 68 ]
 // for comparison
@@ -32,11 +27,27 @@ var int_array_to_hex = function (int_array) {
 }
 
 
-
+var pcap = require('pcap');
 var stream = require('stream');
+var _ = require('underscore');
+
+var create_session = function () {
+    try {
+        var session = pcap.createSession();
+    } catch (err) {
+        console.error(err);
+        if (err == "Error: pcap_findalldevs didn't find any devs") {
+            console.log("Failed to create pcap session: couldn't find devices to listen on.\n" +
+                "Try running with elevated privileges via 'sudo'");
+        }
+        process.exit(1);
+    }
+    return session;
+}
 
 //Function to register the node button
 var register = function(mac_address) {
+    var pcap_session = create_session();
     var readStream = new stream.Readable({
         objectMode: true
     });
@@ -46,7 +57,7 @@ var register = function(mac_address) {
             if(_.isEqual(packet.payload.payload.sender_ha.addr, 
                          hex_to_int_array(mac_address))) {
                 readStream.emit('detected');
-            }	
+            }
         }
     });
     return readStream;
@@ -55,6 +66,7 @@ var register = function(mac_address) {
 if (process.env.NODE_ENV === 'test') {
     module.exports = {  hex_to_int_array: hex_to_int_array, 
                         int_array_to_hex: int_array_to_hex,
+                        create_session: create_session,
                         register: register
                     };
 } else {
