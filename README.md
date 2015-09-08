@@ -52,7 +52,6 @@ dash.on("detected", function (){
 ```
 
 #### To do
-- Throttling (currently under testing in *throttle* branch)
 - API revisions (look at accepting a list and emmitting mac address...cleaner)
 
 #### License
