@@ -4,10 +4,10 @@ process.env.NODE_ENV = 'test'
 //simple module for finding your button's mac
 
 var int_array_to_hex = require('../index.js').int_array_to_hex;
-var pcap = require('pcap'),
-    pcap_session = pcap.createSession();
+var create_session = require('../index.js').create_session;
+var pcap = require('pcap');
 
-var _ = require("underscore")
+var pcap_session = create_session();
 
 console.log("Watching for arp requests on your local network, please try to press your dash now");
 
