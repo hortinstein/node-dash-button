@@ -37,6 +37,13 @@ startTests = function() {
             done();
         });        
     });
+    it('should not fire with more than 2 arp requests in 2 seconds', function(done) {
+        this.timeout(30000);//sometimes the detection takes a while
+          setInterval(sendarp, 250); //giving pcap time to set up a listener   
+        dash_button.register(hex).on('detected', function(){
+            done();
+        });        
+    });
 }
 startTests();
 
