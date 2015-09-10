@@ -11,7 +11,7 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 ### Contents
 -----------------
 - [Installation Instructions](#installation-instructions)
-- [First Time Dash Setup](first-time-dash-setup)
+- [First Time Dash Setup](#first-time-dash-setup)
 - [Find a Dash](#find-a-dash)
 - [Example Usage](#example-usage)
 - [To do](#to-do)
