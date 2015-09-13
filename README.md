@@ -16,15 +16,15 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 - [Example Usage](#example-usage)
 - [To do](#to-do)
 - [License](#license)
- 
+
 #### Installation Instructions
 The following should work for ubuntu, the main thing for any os is getting the libpcap dependancy.
 ``` sh
 # dependancy on libpcap for reading packets
 $ sudo apt-get install libpcap-dev
-$ npm install node-dash-button 
+$ npm install node-dash-button
 ```
-#### First Time Dash Setup 
+#### First Time Dash Setup
 
 Follow Amazon's instructions to configure your button to send messages when you push them but not actually order anything. When you get a Dash button, Amazon gives you a list of setup instructions to get going. Just follow this list of instructions, but don’t complete the final step (#3 I think) **Do not select a product, just exit the app**.
 
@@ -44,11 +44,14 @@ It will watch for new arp requests on your network.  There may be several arp re
 ``` js
 //warning this may trigger multiple times for one press
 //...usually triggers twice based on testing for each press
-dash_button = require('node-dash-button');
+var dash_button = require('node-dash-button');
+var _ = require('lodash')
 var dash = dash_button("8f:3f:20:33:54:44"); //address from step above
-dash.on("detected", function (){
-	console.log("omg found");
-});
+var found = function() {
+    console.log("omg found");
+};
+
+dash.on("detected", _.debounce(found, 20000, true));
 ```
 
 #### To do
