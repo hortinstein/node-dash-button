@@ -45,7 +45,7 @@ It will watch for new arp requests on your network.  There may be several arp re
 //warning this may trigger multiple times for one press
 //...usually triggers twice based on testing for each press
 var dash_button = require('node-dash-button');
-var _ = require('lodash')
+var _ = require('lodash');
 var dash = dash_button("8f:3f:20:33:54:44"); //address from step above
 var found = function() {
     console.log("omg found");
