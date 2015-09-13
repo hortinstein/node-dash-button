@@ -51,7 +51,7 @@ var found = function() {
     console.log("omg found");
 };
 
-dash.on("detected", _.debounce(found, 20000, true));
+dash.on("detected", _.debounce(found, 50000, true));
 ```
 
 #### To do
