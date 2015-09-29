@@ -16,6 +16,7 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 - [Example Usage](#example-usage)
 - [Example Projects](#example-projects)
 - [To do](#to-do)
+- [Contributions]
 - [License](#license)
  
 #### Installation Instructions
@@ -61,6 +62,9 @@ I collected a few examples I found on github of how people are using this module
 
 #### To do
 - API revisions (look at accepting a list and emmitting mac address...cleaner)
+
+#### Contributions
+Accepting pull requests!
 
 #### License
 
