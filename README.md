@@ -16,7 +16,7 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 - [Example Usage](#example-usage)
 - [Example Projects](#example-projects)
 - [To do](#to-do)
-- [Contributions]
+- [Contributions](#contributions)
 - [License](#license)
  
 #### Installation Instructions
