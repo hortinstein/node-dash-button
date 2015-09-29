@@ -14,6 +14,7 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 - [First Time Dash Setup](#first-time-dash-setup)
 - [Find a Dash](#find-a-dash)
 - [Example Usage](#example-usage)
+- [Example Projects](#example-projects)
 - [To do](#to-do)
 - [License](#license)
  
@@ -50,6 +51,10 @@ dash.on("detected", function (){
 	console.log("omg found");
 });
 ```
+
+#### Example Projects:
+
+- [PizzaDash](https://github.com/bhberson/pizzadash) uses a node dash to order Domino's pizza. [The Verge did a short writeup on the project](http://www.theverge.com/2015/9/28/9407669/amazon-dash-button-hack-pizza) 
 
 #### To do
 - API revisions (look at accepting a list and emmitting mac address...cleaner)
