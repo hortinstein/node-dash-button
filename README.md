@@ -60,6 +60,7 @@ I collected a few examples I found on github of how people are using this module
 - [dash-listener](https://github.com/dkordik/dash-listener) performs various home automation tasks like adjusting lights and interacting with a music player
 - [Nest-Dash](https://github.com/djrausch/Nest-Dash) toggles the Nest setting from away to home via Amazon Dash Button
 - [dash-hipchat-doorbell](https://github.com/Sfeinste/dash-hipchat-doorbell) quick and dirty node app that intercepts traffic from an amazon dash button and creates a hipchat notification (think doorbell)
+- [netflixandchill](https://github.com/sidho/netflixandchill) button to netflix and chill, dims the lights (no interface with netflix yet)
 
 #### To do
 - API revisions (look at accepting a list and emmitting mac address...cleaner)
