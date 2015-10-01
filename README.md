@@ -55,7 +55,7 @@ dash.on("detected", function (){
 
 #### Example Projects:
 I collected a few examples I found on github of how people are using this module, some projects are more mature than others
-- [PizzaDash](https://github.com/bhberson/pizzadash) uses a node dash to order Domino's pizza. [The Verge did a short writeup on the project](http://www.theverge.com/2015/9/28/9407669/amazon-dash-button-hack-pizza) 
+- [PizzaDash](https://github.com/bhberson/pizzadash) uses a node dash to order Domino's pizza. [The Verge](http://www.theverge.com/2015/9/28/9407669/amazon-dash-button-hack-pizza) and [Grubstreet](http://www.grubstreet.com/2015/09/amazon-dash-button-dominos-hack.html#)  did a short writeup on the PizzaDash project].  
 - [dashgong](https://github.com/danboy/dashgong) uses the node dash to send a message to slack
 - [dash-listener](https://github.com/dkordik/dash-listener) performs various home automation tasks like adjusting lights and interacting with a music player
 - [Nest-Dash](https://github.com/djrausch/Nest-Dash) toggles the Nest setting from away to home via Amazon Dash Button
