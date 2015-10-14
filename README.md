@@ -60,9 +60,9 @@ For multiple dashes:
 dash_button = require('node-dash-button');
 var dash = dash_button(["8f:3f:20:33:54:44","2e:3f:20:33:54:22"]); //address from step above
 dash.on("detected", function (dash_id){
-    if (dash_id == "8f:3f:20:33:54:44"){
+    if (dash_id === "8f:3f:20:33:54:44"){
         console.log("omg found");
-    } else if (dash_id == "2e:3f:20:33:54:22"){
+    } else if (dash_id === "2e:3f:20:33:54:22"){
         console.log("found the other!");
     }
 });
@@ -79,7 +79,7 @@ I collected a few examples I found on github of how people are using this module
 - [dash-rickroll](https://github.com/girliemac/dash-rickroll/blob/8f0396c7fec871427fe016a2dd5787f07b1402cc/README.md) title explains it all 
 
 #### To do
-- API revisions (look at accepting a list and emmitting mac address...cleaner)
+- figure out how not to use root and fix CI
 
 #### Contributions
 Accepting pull requests!
