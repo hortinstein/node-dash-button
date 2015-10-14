@@ -48,9 +48,9 @@ var create_session = function () {
 //Function to register the node button
 var register = function(mac_addresses) {
     if (Array.isArray(mac_addresses)){
-        console.log("array detected")
+        //console.log("array detected")
     } else {
-        console.log("single element detected")
+        //console.log("single element detected")
         mac_addresses = [mac_addresses]//cast to array
     }
     var pcap_session = create_session();
