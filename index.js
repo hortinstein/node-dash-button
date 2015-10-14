@@ -34,6 +34,7 @@ var _ = require('underscore');
 var create_session = function () {
     try {
         var session = pcap.createSession();
+        console.log(session)
     } catch (err) {
         console.error(err);
         if (err == "Error: pcap_findalldevs didn't find any devs") {

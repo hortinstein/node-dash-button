@@ -1,15 +1,16 @@
 process.env.NODE_ENV = 'test';
 
+
+///http://bulkan-evcimen.com/using_mockery_to_mock_modules_nodejs.html
+//this should be an effective way to mock functions
+
 var should = require('should');
 var assert = require('assert');
 var pcap = require('pcap');
 var sinon = require('sinon');
+var mockery = require('mockery')
 var events = require('events');
-var fake_session = sinon.stub(pcap, 'createSession',function () {
-            session = new events.EventEmitter();
-            return session;
-        });
-var dash_button = require('../index.js');
+
 
 var hex = '8f:3f:20:33:54:44';
 var hex2 = '8f:3f:20:33:54:43';
@@ -18,34 +19,8 @@ var int_array = [];
 var packet1 = createMockArpProbe(hex);
 var packet2 = createMockArpProbe(hex2);
 var packet3 = createMockArpProbe(hex3);
-//var arp = require('arpjs');
-// var sendarp = function(){
-//     arp.send({
-//     'op': 'request',
-//     'src_ip': '10.105.50.100',
-//     'dst_ip': '10.105.50.1',
-//     'src_mac': hex,
-//     'dst_mac': 'ff:ff:ff:ff:ff:ff'
-//     });  
-// };
-// var sendarp2 = function(){
-//     arp.send({
-//     'op': 'request',
-//     'src_ip': '10.105.50.100',
-//     'dst_ip': '10.105.50.1',
-//     'src_mac': hex2,
-//     'dst_mac': 'ff:ff:ff:ff:ff:ff'
-//     });  
-// };
-// var sendarp3 = function(){
-//     arp.send({
-//     'op': 'request',
-//     'src_ip': '10.105.50.100',
-//     'dst_ip': '10.105.50.1',
-//     'src_mac': hex3,
-//     'dst_mac': 'ff:ff:ff:ff:ff:ff'
-//     });  
-// };
+
+
 function createMockArpProbe(sourceMacAddress) {
   var decimals = sourceMacAddress.split(':').map(function(hex){ parseInt(hex, 16)});
   assert(decimals.length === 6, 'MAC addresses must be six bytes');
@@ -74,10 +49,28 @@ function createMockArpProbe(sourceMacAddress) {
     ]),
   };
 }
+fake_session = "";
+var mock_pcap = {
+    createSession: function () {
+        fake_session = new events.EventEmitter();
+        return fake_session;
+    }
+};
 
 startTests = function() {
-    beforeEach(function(done) {
-        done();
+    before(function() {
+        mockery.enable({
+            warnOnReplace: false,
+            warnOnUnregistered: false,
+            useCleanCache: true
+        });
+        createSessionStub = sinon.stub();
+
+        // replace the module `request` with a stub object
+        mockery.registerMock('pcap', mock_pcap);
+
+        dash_button = require('../index.js');        
+        
     });
     it('should correctly convert string hex to decimal array', function(done) {
         int_array = dash_button.hex_to_int_array(hex)
@@ -88,6 +81,7 @@ startTests = function() {
         done(); 
     });
     it('should recognize an arp request', function(done) {
+        fake_session.on('packet', function(packet){console.log(packet)});
         fake_session.emit('packet',packet1)
         dash_button.register(hex).on('detected', function(){
             done();
@@ -98,18 +92,18 @@ startTests = function() {
             done();
         });        
     });
-    two_tester = dash_button.register([hex2,hex3]);
+//     two_tester = dash_button.register([hex2,hex3]);
     
-    it('should recognize first of two arp requests', function(done) {
-        two_tester.on('detected', function(mac_address){
-            if (mac_address === hex2) done();
-        }); 
-    });
-    it('should recognize second of two arp requests', function(done) {
-        two_tester.on('detected', function(mac_address){
-            if (mac_address === hex3) done();
-        }); 
-    });
+//     it('should recognize first of two arp requests', function(done) {
+//         two_tester.on('detected', function(mac_address){
+//             if (mac_address === hex2) done();
+//         }); 
+//     });
+//     it('should recognize second of two arp requests', function(done) {
+//         two_tester.on('detected', function(mac_address){
+//             if (mac_address === hex3) done();
+//         }); 
+//     });
 }
 
 
