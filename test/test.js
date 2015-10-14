@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 var should = require('should');
 var assert = require('assert');
 var dash_button = require('../index.js');
-
+var pcap = require('pcap')
 var hex = '8f:3f:20:33:54:44';
 var hex2 = '8f:3f:20:33:54:43';
 var hex3 = '8f:3f:20:33:54:42';
