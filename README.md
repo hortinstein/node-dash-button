@@ -43,6 +43,8 @@ It will watch for new arp requests on your network.  There may be several arp re
 ![hw address](http://i.imgur.com/BngokPC.png)
 
 #### Example Usage:
+
+For a single dash
 ``` js
 //warning this may trigger multiple times for one press
 //...usually triggers twice based on testing for each press
@@ -50,6 +52,19 @@ dash_button = require('node-dash-button');
 var dash = dash_button("8f:3f:20:33:54:44"); //address from step above
 dash.on("detected", function (){
 	console.log("omg found");
+});
+```
+
+For multiple dashes:
+```js
+dash_button = require('node-dash-button');
+var dash = dash_button(["8f:3f:20:33:54:44","2e:3f:20:33:54:22"]); //address from step above
+dash.on("detected", function (dash_id){
+    if (dash_id === "8f:3f:20:33:54:44"){
+        console.log("omg found");
+    } else if (dash_id === "2e:3f:20:33:54:22"){
+        console.log("found the other!");
+    }
 });
 ```
 
@@ -64,7 +79,7 @@ I collected a few examples I found on github of how people are using this module
 - [dash-rickroll](https://github.com/girliemac/dash-rickroll/blob/8f0396c7fec871427fe016a2dd5787f07b1402cc/README.md) title explains it all 
 
 #### To do
-- API revisions (look at accepting a list and emmitting mac address...cleaner)
+- figure out how not to use root and fix CI
 
 #### Contributions
 Accepting pull requests!

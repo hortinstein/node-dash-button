@@ -46,22 +46,34 @@ var create_session = function () {
 }
 
 //Function to register the node button
-var register = function(mac_address) {
+var register = function(mac_addresses) {
+    if (Array.isArray(mac_addresses)){
+        console.log("array detected")
+    } else {
+        console.log("single element detected")
+        mac_addresses = [mac_addresses]//cast to array
+    }
     var pcap_session = create_session();
     var readStream = new stream.Readable({
         objectMode: true
     });
-    var just_emitted = false;
+    var just_emitted = {};
+    mac_addresses.forEach(function(mac_address){
+        just_emitted[mac_address] = false;
+    });
     pcap_session.on('packet', function(raw_packet) {
         var packet = pcap.decode.packet(raw_packet); //decodes the packet
         if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
-            if(!just_emitted && 
-                _.isEqual(packet.payload.payload.sender_ha.addr, 
-                         hex_to_int_array(mac_address))) {
-                readStream.emit('detected');
-                just_emitted = true;
-                setTimeout(function () { just_emitted = false; }, 3000);
-            }
+            //for element in the mac addresses array
+            mac_addresses.forEach(function(mac_address){
+                if(!just_emitted[mac_address] && 
+                    _.isEqual(packet.payload.payload.sender_ha.addr, 
+                             hex_to_int_array(mac_address))) {
+                    readStream.emit('detected', mac_address);
+                    just_emitted[mac_address] = true;
+                    setTimeout(function () { just_emitted = false; }, 3000);
+                }                
+            });
         }
     });
     return readStream;
