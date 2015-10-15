@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-
+require('buffer')
 ///http://bulkan-evcimen.com/using_mockery_to_mock_modules_nodejs.html
 //this should be an effective way to mock functions
 
@@ -8,46 +8,33 @@ var should = require('should');
 var assert = require('assert');
 var mockery = require('mockery'); // https://github.com/nathanmacinnes/injectr
 var events = require('events');
-
+var arp = require('./arp_utils.js')
 
 var hex = '8f:3f:20:33:54:44';
 var hex2 = '8f:3f:20:33:54:43';
 var hex3 = '8f:3f:20:33:54:42';
 var int_array = [];
-var packet1 = createMockArpProbe(hex);
-var packet2 = createMockArpProbe(hex2);
-var packet3 = createMockArpProbe(hex3);
-
-
-function createMockArpProbe(sourceMacAddress) {
-  var decimals = sourceMacAddress.split(':').map(function(hex){ parseInt(hex, 16)});
-  assert(decimals.length === 6, 'MAC addresses must be six bytes');
-
-  return {
-    link_type: 'LINKTYPE_ETHERNET',
-    header: new Buffer([
-      249, 133,  27,  86,  // Seconds
-      137, 239,   1,   0,  // Microseconds
-       42,   0,   0,   0,  // Captured length
-       42,   0,   0,   0,  // Total length
-    ]),
-    buf: new Buffer([
-      255, 255, 255, 255, 255, 255,  // Destination MAC address
-      decimals[0],decimals[1],decimals[2],decimals[3],decimals[4], decimals[5],// Source MAC address
-        8,   6,  // EtherType (0x0806 = ARP)
-        0,   1,  // HTYPE
-        8,   0,  // PTYPE
-        6,       // HLEN
-        4,       // PLEN
-        0,   1,  // Operation
-      decimals[0],decimals[1],decimals[2],decimals[3],decimals[4], decimals[5],// Source MAC address,                   // SHA
-        0,   0,   0,   0,            // SPA
-        0,   0,   0,   0,   0,   0,  // THA
-       10,   0,  10,  20,            // TPA
-    ]),
-  };
-}
-
+var packet1 = arp({
+    'op': 'request',
+    'src_ip': '10.105.50.100',
+    'dst_ip': '10.105.50.1',
+    'src_mac': hex,
+    'dst_mac': 'ff:ff:ff:ff:ff:ff'
+    });
+var packet2 = arp({
+    'op': 'request',
+    'src_ip': '10.105.50.100',
+    'dst_ip': '10.105.50.1',
+    'src_mac': hex2,
+    'dst_mac': 'ff:ff:ff:ff:ff:ff'
+    });
+var packet3 = arp({
+    'op': 'request',
+    'src_ip': '10.105.50.100',
+    'dst_ip': '10.105.50.1',
+    'src_mac': hex3,
+    'dst_mac': 'ff:ff:ff:ff:ff:ff'
+    });
 fake_session = new events.EventEmitter();
 var mock_pcap = {
     createSession: function () {
