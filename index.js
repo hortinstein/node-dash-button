@@ -34,7 +34,6 @@ var _ = require('underscore');
 var create_session = function () {
     try {
         var session = pcap.createSession();
-        console.log(session)
     } catch (err) {
         console.error(err);
         if (err == "Error: pcap_findalldevs didn't find any devs") {
@@ -81,11 +80,14 @@ var register = function(mac_addresses) {
 };
 
 if (process.env.NODE_ENV === 'test') {
+    
+    
     module.exports = {  hex_to_int_array: hex_to_int_array, 
                         int_array_to_hex: int_array_to_hex,
                         create_session: create_session,
                         register: register
                     };
+    
 } else {
     module.exports = register;
 }

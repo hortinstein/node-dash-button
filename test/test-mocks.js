@@ -6,9 +6,7 @@ process.env.NODE_ENV = 'test';
 
 var should = require('should');
 var assert = require('assert');
-var pcap = require('pcap');
-var sinon = require('sinon');
-var mockery = require('mockery')
+var mockery = require('mockery'); // https://github.com/nathanmacinnes/injectr
 var events = require('events');
 
 
@@ -49,12 +47,18 @@ function createMockArpProbe(sourceMacAddress) {
     ]),
   };
 }
-fake_session = "";
+
+fake_session = new events.EventEmitter();
 var mock_pcap = {
     createSession: function () {
-        fake_session = new events.EventEmitter();
+        console.log("sending refernce to fake event emitter")
+        
         return fake_session;
-    }
+    },
+    test: function() {
+        return 'inject works!';
+    },
+    decode: require("../node_modules/pcap/decode").decode
 };
 
 startTests = function() {
@@ -64,13 +68,14 @@ startTests = function() {
             warnOnUnregistered: false,
             useCleanCache: true
         });
-        createSessionStub = sinon.stub();
-
-        // replace the module `request` with a stub object
-        mockery.registerMock('pcap', mock_pcap);
-
+        mockery.registerMock('pcap', mock_pcap);// replace the module `request` with a stub object
+        pcap = require('pcap');
         dash_button = require('../index.js');        
         
+    });
+    it('should correctly mock pcap functions for testing', function(done) {
+        pcap.test().should.equal('inject works!');
+        done(); 
     });
     it('should correctly convert string hex to decimal array', function(done) {
         int_array = dash_button.hex_to_int_array(hex)
@@ -80,12 +85,12 @@ startTests = function() {
         dash_button.int_array_to_hex(int_array).should.equal(hex);
         done(); 
     });
+    
     it('should recognize an arp request', function(done) {
-        fake_session.on('packet', function(packet){console.log(packet)});
-        fake_session.emit('packet',packet1)
         dash_button.register(hex).on('detected', function(){
             done();
         });        
+        fake_session.emit('packet',packet1)
     });
     it('should not fire with more than 2 arp requests in 2 seconds', function(done) {
         dash_button.register(hex).on('detected', function(){

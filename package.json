@@ -4,7 +4,8 @@
   "description": "a module for integrating amazon dash button presses into a node project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/test.js"
+    "livetest": "mocha test/test.js",
+    "test": "mocha test/test-mocks.js"
   },
   "bin":{
     "findbutton": "./bin/findbutton"
