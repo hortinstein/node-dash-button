@@ -62,6 +62,7 @@ var register = function(mac_addresses) {
         just_emitted[mac_address] = false;
     });
     pcap_session.on('packet', function(raw_packet) {
+        //console.log(raw_packet)
         var packet = pcap.decode.packet(raw_packet); //decodes the packet
         if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
             //for element in the mac addresses array
@@ -80,11 +81,14 @@ var register = function(mac_addresses) {
 };
 
 if (process.env.NODE_ENV === 'test') {
+    
+    
     module.exports = {  hex_to_int_array: hex_to_int_array, 
                         int_array_to_hex: int_array_to_hex,
                         create_session: create_session,
                         register: register
                     };
+    
 } else {
     module.exports = register;
 }

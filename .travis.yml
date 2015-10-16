@@ -1,10 +1,6 @@
-
 language: node_js
 
-sudo: true
-
-before_install:
-  - npm update -q
+sudo: false
 
 addons:
   apt:
@@ -12,6 +8,11 @@ addons:
     - libpcap-dev
 
 node_js:
+  - "4.2"
+  - "4.1"
+  - "4.0"
   - "0.12"
   - "0.11"
-  - "iojs-v2.0.0"
+  - "0.10"
+  - "node"
+  - "iojs"
