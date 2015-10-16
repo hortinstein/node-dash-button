@@ -1,10 +1,6 @@
 ![Blank Dash](http://i.imgur.com/PP0CJ3s.png?1)
 # node-dash-button
-[![Travis-CI Build Status](https://travis-ci.org/hortinstein/node-dash-button.svg)](https://travis-ci.org/hortinstein/node-dash-button)[![Codeship Build Status](https://codeship.com/projects/d1dba560-53f4-0133-a6f8-327436a2a91a/status?branch=master)](https://codeship.com/projects/108510)[![CircleCI Build Status](https://circleci.com/gh/hortinstein/node-dash-button.png?circle-token=:circle-token)](https://circleci.com/gh/hortinstein/node-dash-button)
-
-[![Coverage Status](https://coveralls.io/repos/hortinstein/node-dash-button/badge.svg?branch=master&service=github)](https://coveralls.io/github/hortinstein/node-dash-button?branch=master)
-
-[![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/hortinstein/node-dash-button)
+[![Travis-CI Build Status](https://travis-ci.org/hortinstein/node-dash-button.svg)](https://travis-ci.org/hortinstein/node-dash-button)  [![Codeship Build Status](https://codeship.com/projects/d1dba560-53f4-0133-a6f8-327436a2a91a/status?branch=master)](https://codeship.com/projects/108510)  [![CircleCI Build Status](https://circleci.com/gh/hortinstein/node-dash-button.png?circle-token=:circle-token)](https://circleci.com/gh/hortinstein/node-dash-button)  [![Coverage Status](https://coveralls.io/repos/hortinstein/node-dash-button/badge.svg?branch=master&service=github)](https://coveralls.io/github/hortinstein/node-dash-button?branch=master)  [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/hortinstein/node-dash-button)
 
 Place it. *Hack it.* Press it. ~~Get it.~~
 
