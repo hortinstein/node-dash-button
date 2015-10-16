@@ -62,7 +62,7 @@ var register = function(mac_addresses) {
         just_emitted[mac_address] = false;
     });
     pcap_session.on('packet', function(raw_packet) {
-        console.log(raw_packet)
+        //console.log(raw_packet)
         var packet = pcap.decode.packet(raw_packet); //decodes the packet
         if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
             //for element in the mac addresses array

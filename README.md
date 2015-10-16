@@ -15,6 +15,7 @@ It is a simple library that will allow you to utilize a dash button to emit an e
 - [Find a Dash](#find-a-dash)
 - [Example Usage](#example-usage)
 - [Example Projects](#example-projects)
+- [Running Tests](#running-tests)
 - [To do](#to-do)
 - [Contributions](#contributions)
 - [License](#license)
@@ -68,6 +69,21 @@ dash.on("detected", function (dash_id){
 });
 ```
 
+#### Running Tests:
+Due to the use of pcap permiscuous monitoring this was difficult to test in CI environments, so I ended up making two testing suites.  One uses the live pcap library and does actual packet capturing/arp injections.  The other uses [mockery](https://github.com/mfncooper/mockery) to fake pcap packets.  I will have an upcoming blog post on how I did this, because it was interesting.
+
+To run a live test of the code (requiring root due to permiscuous access please run).
+```
+sudo npm run-script livetest
+```
+This will actually inject ARP packets to the network to run the tests to ensure detection.
+
+I wanted to use various CI tools that would not allow the pcap functions to work, so I ended up mocking their functions.  To run the mock tests use:
+```
+npm test
+```
+
+
 #### Example Projects:
 I collected a few examples I found on github of how people are using this module, some projects are more mature than others
 - [PizzaDash](https://github.com/bhberson/pizzadash) uses a node dash to order Domino's pizza. [The Verge](http://www.theverge.com/2015/9/28/9407669/amazon-dash-button-hack-pizza), [Gizmodo](http://gizmodo.com/an-american-hero-hacked-an-amazon-dash-button-to-order-1733347471) and [Grubstreet](http://www.grubstreet.com/2015/09/amazon-dash-button-dominos-hack.html#)  did short writeups on the PizzaDash project].  
@@ -79,7 +95,7 @@ I collected a few examples I found on github of how people are using this module
 - [dash-rickroll](https://github.com/girliemac/dash-rickroll/blob/8f0396c7fec871427fe016a2dd5787f07b1402cc/README.md) title explains it all 
 
 #### To do
-- figure out how not to use root and fix CI
+- refactor
 
 #### Contributions
 Accepting pull requests!
