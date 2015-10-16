@@ -4,8 +4,14 @@ sudo: true
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
     - libpcap-dev
+    - gcc-4.9
+    - g++-4.9
+before_install:
+    - export CC="gcc-4.9" CXX="g++-4.9"
 
 node_js:
   - "4.2"
