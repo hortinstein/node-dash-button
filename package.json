@@ -34,9 +34,7 @@
   "devDependencies": {
     "arpjs": "^1.0.0",
     "mocha": "^2.3.0",
-    "pcap": "^2.0.1",
     "should": "^7.1.0",
-    "underscore": "^1.8.3",
     "sinon": "*",
     "mockery": "*",
     "ip":"*",
