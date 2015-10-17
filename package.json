@@ -35,11 +35,10 @@
     "arpjs": "^1.0.0",
     "mocha": "^2.3.0",
     "should": "^7.1.0",
-    "sinon": "*",
-    "mockery": "*",
-    "ip":"*",
-    "istanbul": "*",
-    "coveralls": "*"
+    "sinon": "^1.17.1",
+    "mockery": "^1.4.0",
+    "istanbul": "0.3.22",
+    "coveralls": "^2.11.4"
   }
 
 }

@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 var should = require('should');
 var assert = require('assert');
 var dash_button = require('../index.js');
-var pcap = require('pcap')
+var pcap = require('pcap');
 var hex = '8f:3f:20:33:54:44';
 var hex2 = '8f:3f:20:33:54:43';
 var hex3 = '8f:3f:20:33:54:42';
@@ -43,7 +43,7 @@ startTests = function() {
         done(); 
     });
     it('should correctly convert string hex to decimal array', function(done) {
-        int_array = dash_button.hex_to_int_array(hex)
+        int_array = dash_button.hex_to_int_array(hex);
         done(); 
     });
     it('should correctly convert a decimal array to string hex', function(done) {
@@ -80,6 +80,6 @@ startTests = function() {
             if (mac_address === hex3) done();
         }); 
     });
-}
+};
 startTests();
 

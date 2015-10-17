@@ -1,3 +1,5 @@
+"use strict";
+
 // converts a string: "8f:3f:20:33:54:44"
 // to a numeric array: [ 143, 63, 32, 51, 84, 68 ]
 // for comparison
@@ -9,8 +11,7 @@ var hex_to_int_array = function(hex){
     }
     //console.log(hex,int_array)
     return int_array; 
-
-}
+};
 
 // converts a numeric array: [ 143, 63, 32, 51, 84, 68 ]
 // to a string: "8f:3f:20:33:54:44"=
@@ -24,7 +25,7 @@ var int_array_to_hex = function (int_array) {
         hex += h;
     }
     return hex.slice(1);//slice is to get rid of the leading :
-}
+};
 
 
 var pcap = require('pcap');
@@ -43,7 +44,7 @@ var create_session = function () {
         process.exit(1);
     }
     return session;
-}
+};
 
 //Function to register the node button
 var register = function(mac_addresses) {
@@ -51,7 +52,7 @@ var register = function(mac_addresses) {
         //console.log("array detected")
     } else {
         //console.log("single element detected")
-        mac_addresses = [mac_addresses]//cast to array
+        mac_addresses = [mac_addresses];//cast to array
     }
     var pcap_session = create_session();
     var readStream = new stream.Readable({
