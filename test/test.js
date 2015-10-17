@@ -34,7 +34,7 @@ var mock_pcap = {
     },
     decode: {
         packet: function(packet) {
-            mock_packet = {
+            var mock_packet = {
                 "payload": {
                     "ethertype": packet.packet_payload_ethertype,
                     "payload": {
@@ -48,6 +48,8 @@ var mock_pcap = {
         }
     }
 };
+var pcap = ""; //for linting purps
+var dash_button = ""; //for linting purps
 startTests = function() {
     before(function() {
         mockery.enable({
@@ -101,6 +103,16 @@ startTests = function() {
             if(mac_address === hex3) done();
         });
         fake_session.emit('packet', packet3);
+    });
+    it('should throw an error if no interfaces are available', function(done) {
+        mock_pcap.createSession = function() {
+            throw new Error("Error: pcap_findalldevs didn't find any devs");
+        };
+        try {
+            dash_button.register('bullshit');
+        } catch(err) {
+            done()
+        }
     });
 };
 startTests();

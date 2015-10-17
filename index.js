@@ -20,8 +20,8 @@ var int_array_to_hex = function (int_array) {
     var hex = "";
     for (var i in int_array){
         var h = int_array[i].toString(16); // converting to hex
-        if (h.length < 2) h = '0' + h; //adding a 0 for non 2 digit numbers
-        if (i !== int_array.length) hex+=":"; //adding a : for all but the last group
+        if (h.length < 2) {h = '0' + h}; //adding a 0 for non 2 digit numbers
+        if (i !== int_array.length) {hex+=":"}; //adding a : for all but the last group
         hex += h;
     }
     return hex.slice(1);//slice is to get rid of the leading :
@@ -37,11 +37,8 @@ var create_session = function () {
         var session = pcap.createSession();
     } catch (err) {
         console.error(err);
-        if (err == "Error: pcap_findalldevs didn't find any devs") {
-            console.log("Failed to create pcap session: couldn't find devices to listen on.\n" +
-                "Try running with elevated privileges via 'sudo'");
-        }
-        process.exit(1);
+        console.error("Failed to create pcap session: couldn't find devices to listen on.\n" + "Try running with elevated privileges via 'sudo'");
+        throw new Error('Error: No devices to listen');
     }
     return session;
 };
