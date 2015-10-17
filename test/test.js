@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-require('buffer')
+require('buffer');
 ///http://bulkan-evcimen.com/using_mockery_to_mock_modules_nodejs.html
 //this should be an effective way to mock functions
 var should = require('should');
@@ -34,7 +34,7 @@ var mock_pcap = {
     },
     decode: {
         packet: function(packet) {
-            mock_packet = {
+            var mock_packet = {
                 "payload": {
                     "ethertype": packet.packet_payload_ethertype,
                     "payload": {
@@ -43,11 +43,13 @@ var mock_pcap = {
                         }
                     }
                 }
-            }
+            };
             return mock_packet;
         }
     }
 };
+var pcap = ""; //for linting purps
+var dash_button = ""; //for linting purps
 startTests = function() {
     before(function() {
         mockery.enable({
@@ -64,7 +66,7 @@ startTests = function() {
         done();
     });
     it('should correctly convert string hex to decimal array', function(done) {
-        int_array = dash_button.hex_to_int_array(hex)
+        int_array = dash_button.hex_to_int_array(hex);
         done();
     });
     it('should correctly convert a decimal array to string hex', function(done) {
@@ -75,18 +77,18 @@ startTests = function() {
         dash_button.register(hex).on('detected', function() {
             done();
         });
-        fake_session.emit('packet', packet1)
+        fake_session.emit('packet', packet1);
     });
     it('should not fire with more than 2 arp requests in 2 seconds', function(done) {
         dash_button.register(hex2).on('detected', function() {
             setTimeout(function() {
-                done()
+                done();
             }, 50);
             //console.log("should only see this once")        
         });
         for(count = 0; count < 10; count++) {
-            //console.log("firing packet!")
-            fake_session.emit('packet', packet2)
+            //console.log("firing packet!");
+            fake_session.emit('packet', packet2);
         }
     });
     it('should recognize first of two arp requests', function(done) {
@@ -94,13 +96,23 @@ startTests = function() {
         two_tester.on('detected', function(mac_address) {
             if(mac_address === hex2) done();
         });
-        fake_session.emit('packet', packet2)
+        fake_session.emit('packet', packet2);
     });
     it('should recognize second of two arp requests', function(done) {
         two_tester.on('detected', function(mac_address) {
             if(mac_address === hex3) done();
         });
-        fake_session.emit('packet', packet3)
+        fake_session.emit('packet', packet3);
     });
-}
+    it('should throw an error if no interfaces are available', function(done) {
+        mock_pcap.createSession = function() {
+            throw new Error("Error: pcap_findalldevs didn't find any devs");
+        };
+        try {
+            dash_button.register('bullshit');
+        } catch(err) {
+            done()
+        }
+    });
+};
 startTests();
