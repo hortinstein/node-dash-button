@@ -3,7 +3,6 @@ require('buffer');
 ///http://bulkan-evcimen.com/using_mockery_to_mock_modules_nodejs.html
 //this should be an effective way to mock functions
 var should = require('should');
-var assert = require('assert');
 var mockery = require('mockery'); // https://github.com/nathanmacinnes/injectr
 var events = require('events');
 var hex = '8f:3f:20:33:54:44';
