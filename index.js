@@ -70,7 +70,7 @@ var register = function(mac_addresses) {
                              hex_to_int_array(mac_address))) {
                     readStream.emit('detected', mac_address);
                     just_emitted[mac_address] = true;
-                    setTimeout(function () { just_emitted = false; }, 3000);
+                    setTimeout(function () { just_emitted[mac_address] = false; }, 3000);
                 }                
             });
         }
