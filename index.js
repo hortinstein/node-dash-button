@@ -61,7 +61,23 @@ var register = function(mac_addresses) {
     });
     pcap_session.on('packet', function(raw_packet) {
         //console.log(raw_packet)
-        var packet = pcap.decode.packet(raw_packet); //decodes the packet
+        var packet;
+
+        /**
+         * Perform a try/catch on packet decoding until pcap
+         * offers a non-throwing mechanism to listen for errors
+         * (We're just ignoring these errors because TCP packets with an
+         *  unknown offset should have no impact on this application) 
+         *
+         * See https://github.com/mranney/node_pcap/issues/153
+         */
+        try {
+            packet = pcap.decode.packet(raw_packet); //decodes the packet
+        } catch (err) {
+            //console.error(err);
+            return;
+        }
+
         if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
             //for element in the mac addresses array
             mac_addresses.forEach(function(mac_address){
