@@ -69,6 +69,16 @@ dash.on("detected", function (dash_id){
 });
 ```
 
+#### Binding To Specific Interface:
+By default, the dash button is bound to the [first device with an address](https://github.com/mranney/node_pcap/blob/master/pcap_binding.cc#L89). To bind the button to a specific interface, such as `eth6`, pass the name of the interface as the 2nd argument to the invocation method.
+``` js
+vardash_button = require('node-dash-button');
+var dash = dash_button("8f:3f:20:33:54:44", "eth6"); //address from step above
+dash.on("detected", function (){
+  console.log("omg found - on eth6!");
+});
+```
+
 #### Running Tests:
 Due to the use of pcap permiscuous monitoring this was difficult to test in CI environments, so I ended up making two testing suites.  One uses the live pcap library and does actual packet capturing/arp injections.  The other uses [mockery](https://github.com/mfncooper/mockery) to fake pcap packets.  I will have an upcoming blog post on how I did this, because it was interesting.
 
