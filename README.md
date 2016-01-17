@@ -49,7 +49,7 @@ For a single dash
 ``` js
 //warning this may trigger multiple times for one press
 //...usually triggers twice based on testing for each press
-dash_button = require('node-dash-button');
+var dash_button = require('node-dash-button');
 var dash = dash_button("8f:3f:20:33:54:44"); //address from step above
 dash.on("detected", function (){
 	console.log("omg found");
@@ -58,7 +58,7 @@ dash.on("detected", function (){
 
 For multiple dashes:
 ```js
-dash_button = require('node-dash-button');
+var dash_button = require('node-dash-button');
 var dash = dash_button(["8f:3f:20:33:54:44","2e:3f:20:33:54:22"]); //address from step above
 dash.on("detected", function (dash_id){
     if (dash_id === "8f:3f:20:33:54:44"){
@@ -72,7 +72,7 @@ dash.on("detected", function (dash_id){
 #### Binding To Specific Interface:
 By default, the dash button is bound to the [first device with an address](https://github.com/mranney/node_pcap/blob/master/pcap_binding.cc#L89). To bind the button to a specific interface, such as `eth6`, pass the name of the interface as the 2nd argument to the invocation method.
 ``` js
-vardash_button = require('node-dash-button');
+var dash_button = require('node-dash-button');
 var dash = dash_button("8f:3f:20:33:54:44", "eth6"); //address from step above
 dash.on("detected", function (){
   console.log("omg found - on eth6!");
