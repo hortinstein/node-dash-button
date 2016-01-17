@@ -6,8 +6,12 @@ process.env.NODE_ENV = 'test'
 var int_array_to_hex = require('../index.js').int_array_to_hex;
 var create_session = require('../index.js').create_session;
 var pcap = require('pcap');
-
-var pcap_session = create_session();
+var arp_interface = undefined;
+var last_argument = process.argv[process.argv.length - 1];
+if (last_argument.indexOf('findbutton') === -1) {
+    arp_interface = last_argument;
+}
+var pcap_session = create_session(arp_interface);
 
 console.log("Watching for arp requests on your local network, please try to press your dash now");
 

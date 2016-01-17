@@ -43,6 +43,9 @@ It will watch for new arp requests on your network.  There may be several arp re
 
 ![hw address](http://i.imgur.com/BngokPC.png)
 
+Note: If your computer has multiple active network interfaces, `findbutton` will use the first one listed. If you need to overwrite this setting, pass your preferred interface
+as the first argument, such as `node bin/findbutton eth6`.
+
 #### Example Usage:
 
 For a single dash
