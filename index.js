@@ -32,9 +32,9 @@ var pcap = require('pcap');
 var stream = require('stream');
 var _ = require('underscore');
 
-var create_session = function (interface) {
+var create_session = function (arp_interface) {
     try {
-        var session = pcap.createSession(interface);
+        var session = pcap.createSession(arp_interface);
     } catch (err) {
         console.error(err);
         console.error("Failed to create pcap session: couldn't find devices to listen on.\n" + "Try running with elevated privileges via 'sudo'");
@@ -44,14 +44,14 @@ var create_session = function (interface) {
 };
 
 //Function to register the node button
-var register = function(mac_addresses, interface) {
+var register = function(mac_addresses, arp_interface) {
     if (Array.isArray(mac_addresses)){
         //console.log("array detected")
     } else {
         //console.log("single element detected")
         mac_addresses = [mac_addresses];//cast to array
     }
-    var pcap_session = create_session(interface);
+    var pcap_session = create_session(arp_interface);
     var readStream = new stream.Readable({
         objectMode: true
     });
