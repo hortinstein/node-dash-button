@@ -4,82 +4,48 @@ require('buffer');
 //this should be an effective way to mock functions
 var should = require('should');
 var mockery = require('mockery'); // https://github.com/nathanmacinnes/injectr
-var events = require('events');
-var hex = '8f:3f:20:33:54:44';
-var hex2 = '8f:3f:20:33:54:43';
-var hex3 = '8f:3f:20:33:54:42';
-var int_array = [];
-//these are packets to pass into the mock pcap.decode 
-var packet1 = {
-    'packet_payload_ethertype': 2054,
-    'packet_payload_payload_sender_ha_addr': hex,
-};
-var packet2 = {
-    'packet_payload_ethertype': 2054,
-    'packet_payload_payload_sender_ha_addr': hex2,
-};
-var packet3 = {
-    'packet_payload_ethertype': 2054,
-    'packet_payload_payload_sender_ha_addr': hex3,
-};
-fake_session = new events.EventEmitter();
-var mock_pcap = {
-    createSession: function() {
-        //console.log("sending reference to fake event emitter")
-        return fake_session;
-    },
-    test: function() {
-        return 'inject works!';
-    },
-    decode: {
-        packet: function(packet) {
-            var mock_packet = {
-                "payload": {
-                    "ethertype": packet.packet_payload_ethertype,
-                    "payload": {
-                        "sender_ha": {
-                            "addr": dash_button.hex_to_int_array(packet.packet_payload_payload_sender_ha_addr)
-                        }
-                    }
-                }
-            };
-            return mock_packet;
-        }
-    }
-};
-var pcap = ""; //for linting purps
-var dash_button = ""; //for linting purps
+
+var pcap_mock = require('./lib/pcap');
+var hexes = require('./lib/hex');
+var packets = require('./lib/packets');
+
 startTests = function() {
-    before(function() {
+    var pcap = ""; //for linting purps
+    var dash_button = ""; //for linting purps
+    beforeEach(function() {
         mockery.enable({
             warnOnReplace: false,
             warnOnUnregistered: false,
             useCleanCache: true
         });
-        mockery.registerMock('pcap', mock_pcap); // replace the module `request` with a stub object
-        pcap = require('pcap');
+        pcap = new pcap_mock();
+        mockery.registerMock('pcap', pcap); // replace the module `pcap` with a stub object
         dash_button = require('../index.js');
+    });
+    afterEach(function() {
+        mockery.disable();
     });
     it('should correctly mock pcap functions for testing', function(done) {
         pcap.test().should.equal('inject works!');
         done();
     });
     it('should correctly convert string hex to decimal array', function(done) {
-        int_array = dash_button.hex_to_int_array(hex);
+        var int_array = dash_button.hex_to_int_array(hexes.first);
         done();
     });
     it('should correctly convert a decimal array to string hex', function(done) {
-        dash_button.int_array_to_hex(int_array).should.equal(hex);
+        var int_array = dash_button.hex_to_int_array(hexes.first);
+        dash_button.int_array_to_hex(int_array).should.equal(hexes.first);
         done();
     });
     it('should recognize an arp request', function(done) {
-        dash_button.register(hex).on('detected', function() {
+        dash_button.register(hexes.first).on('detected', function() {
             done();
         });
-        fake_session.emit('packet', packet1);
+        pcap.getSession().emit('packet', packets.first);
     });
     it('should not fire with more than 2 arp requests in 2 seconds', function(done) {
-        dash_button.register(hex2).on('detected', function() {
+        dash_button.register(hexes.second).on('detected', function() {
             setTimeout(function() {
                 done();
             }, 50);
@@ -87,31 +53,44 @@ startTests = function() {
         });
         for(count = 0; count < 10; count++) {
             //console.log("firing packet!");
-            fake_session.emit('packet', packet2);
+            pcap.getSession().emit('packet', packets.second);
         }
     });
     it('should recognize first of two arp requests', function(done) {
-        two_tester = dash_button.register([hex2, hex3]);
+        var two_tester = dash_button.register([hexes.second, hexes.third]);
         two_tester.on('detected', function(mac_address) {
-            if(mac_address === hex2) done();
+            if(mac_address === hexes.second) done();
         });
-        fake_session.emit('packet', packet2);
+        pcap.getSession().emit('packet', packets.second);
     });
     it('should recognize second of two arp requests', function(done) {
+        var two_tester = dash_button.register([hexes.second, hexes.third]);
         two_tester.on('detected', function(mac_address) {
-            if(mac_address === hex3) done();
+            if(mac_address === hexes.third) done();
         });
-        fake_session.emit('packet', packet3);
+        pcap.getSession().emit('packet', packets.third);
     });
     it('should throw an error if no interfaces are available', function(done) {
-        mock_pcap.createSession = function() {
-            throw new Error("Error: pcap_findalldevs didn't find any devs");
-        };
+        pcap.enableBadMode();
+        var dash_button_bad = require('../index.js');
         try {
-            dash_button.register('bullshit');
+            dash_button_bad.register(hexes.first).on('detected', function() {
+                console.log('Should never get here');
+                done();
+            });
+            pcap.getSession().emit('packet', packets.first);
         } catch(err) {
-            done()
+            done();
         }
+    });
+    it('should not throw an error when pcap encounters a bad packet', function(done) {
+        try {
+            dash_button.register(hexes.first);
+            pcap.getSession().emit('packet', packets.bad);
+        } catch(err) {
+            throw new Error("Did not catch the error");
+        }
+        done();
     });
 };
 startTests();
