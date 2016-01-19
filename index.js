@@ -1,36 +1,11 @@
 "use strict";
 
-// converts a string: "8f:3f:20:33:54:44"
-// to a numeric array: [ 143, 63, 32, 51, 84, 68 ]
-// for comparison
-var hex_to_int_array = function(hex){
-    var hex_array = hex.split(":");
-    var int_array = [];
-    for (var i in hex_array) {
-        int_array.push( parseInt(hex_array[i], 16));
-    }
-    //console.log(hex,int_array)
-    return int_array; 
-};
-
-// converts a numeric array: [ 143, 63, 32, 51, 84, 68 ]
-// to a string: "8f:3f:20:33:54:44"=
-// for comparison
-var int_array_to_hex = function (int_array) {
-    var hex = "";
-    for (var i in int_array){
-        var h = int_array[i].toString(16); // converting to hex
-        if (h.length < 2) {h = '0' + h}; //adding a 0 for non 2 digit numbers
-        if (i !== int_array.length) {hex+=":"}; //adding a : for all but the last group
-        hex += h;
-    }
-    return hex.slice(1);//slice is to get rid of the leading :
-};
-
-
 var pcap = require('pcap');
 var stream = require('stream');
 var _ = require('underscore');
+var hex_to_int_array = require('./helpers.js').hex_to_int_array;
+var int_array_to_hex = require('./helpers.js').int_array_to_hex;
+
 
 var create_session = function (arp_interface) {
     try {
@@ -60,8 +35,23 @@ var register = function(mac_addresses, arp_interface) {
         just_emitted[mac_address] = false;
     });
     pcap_session.on('packet', function(raw_packet) {
-        //console.log(raw_packet)
-        var packet = pcap.decode.packet(raw_packet); //decodes the packet
+        var packet;
+
+        /**
+         * Perform a try/catch on packet decoding until pcap
+         * offers a non-throwing mechanism to listen for errors
+         * (We're just ignoring these errors because TCP packets with an
+         *  unknown offset should have no impact on this application) 
+         *
+         * See https://github.com/mranney/node_pcap/issues/153
+         */
+        try {
+            packet = pcap.decode.packet(raw_packet); //decodes the packet
+        } catch (err) {
+            //console.error(err);
+            return;
+        }
+
         if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
             //for element in the mac addresses array
             mac_addresses.forEach(function(mac_address){
