@@ -72,7 +72,7 @@ dash.on("detected", function (dash_id){
 });
 ```
 
-#### Binding To Specific Interface:
+Binding To Specific Interface:
 By default, the dash button is bound to the [first device with an address](https://github.com/mranney/node_pcap/blob/master/pcap_binding.cc#L89). To bind the button to a specific interface, such as `eth6`, pass the name of the interface as the 2nd argument to the invocation method.
 ``` js
 var dash_button = require('node-dash-button');
