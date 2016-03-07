@@ -73,6 +73,7 @@ I collected a few examples I found on github of how people are using this module
 - [PizzaDash](https://github.com/bhberson/pizzadash) uses a node dash to order Domino's pizza. [The Verge](http://www.theverge.com/2015/9/28/9407669/amazon-dash-button-hack-pizza), [Gizmodo](http://gizmodo.com/an-american-hero-hacked-an-amazon-dash-button-to-order-1733347471) and [Grubstreet](http://www.grubstreet.com/2015/09/amazon-dash-button-dominos-hack.html#)  did short writeups on the PizzaDash project].  
 - [dashgong](https://github.com/danboy/dashgong) uses the node dash to send a message to slack
 - [dash-listener](https://github.com/dkordik/dash-listener) performs various home automation tasks like adjusting lights and interacting with a music player
+- [dasher](https://github.com/maddox/dasher) lets you map a dash button press to an HTTP request.
 - [Nest-Dash](https://github.com/djrausch/Nest-Dash) toggles the Nest setting from away to home via Amazon Dash Button
 - [dash-hipchat-doorbell](https://github.com/Sfeinste/dash-hipchat-doorbell) quick and dirty node app that intercepts traffic from an amazon dash button and creates a hipchat notification (think doorbell)
 - [netflixandchill](https://github.com/sidho/netflixandchill) button to netflix and chill, dims the lights (no interface with netflix yet)
