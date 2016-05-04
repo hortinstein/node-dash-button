@@ -1,6 +1,6 @@
 {
   "name": "node-dash-button",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "a module for integrating amazon dash button presses into a node project",
   "main": "index.js",
   "scripts": {
