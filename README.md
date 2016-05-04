@@ -48,7 +48,7 @@ as the first argument, such as `node bin/findbutton eth6`.
 
 #### Example Usage:
 
-For a single dash
+**For a single dash**
 ``` js
 //warning this may trigger multiple times for one press
 //...usually triggers twice based on testing for each press
@@ -59,7 +59,7 @@ dash.on("detected", function (){
 });
 ```
 
-For multiple dashes:
+**For multiple dashes**:
 ```js
 var dash_button = require('node-dash-button');
 var dash = dash_button(["8f:3f:20:33:54:44","2e:3f:20:33:54:22"]); //address from step above
@@ -72,7 +72,7 @@ dash.on("detected", function (dash_id){
 });
 ```
 
-Binding To Specific Interface:
+**Binding To Specific Interface**:
 By default, the dash button is bound to the [first device with an address](https://github.com/mranney/node_pcap/blob/master/pcap_binding.cc#L89). To bind the button to a specific interface, such as `eth6`, pass the name of the interface as the 2nd argument to the invocation method.
 ``` js
 var dash_button = require('node-dash-button');
@@ -82,7 +82,16 @@ dash.on("detected", function (){
 });
 ```
 
-Adjus
+**Adjusting the Timeout (if multiple presses are detected)**:
+By default the timeout between presses is 5 seconds.  Depending on the network this may not be enough.  Use the following syntax to specify a new timeout in miliseconds:
+``` js
+var dash_button = require('node-dash-button');
+var dash = dash_button("8f:3f:20:33:54:44", null, 60000); //address from step above
+dash.on("detected", function (){
+  console.log("omg found - on eth6!");
+});
+```
+
 
 #### Running Tests:
 Due to the use of pcap permiscuous monitoring this was difficult to test in CI environments, so I ended up making two testing suites.  One uses the live pcap library and does actual packet capturing/arp injections.  The other uses [mockery](https://github.com/mfncooper/mockery) to fake pcap packets.  I will have an upcoming blog post on how I did this, because it was interesting.
