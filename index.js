@@ -19,7 +19,10 @@ var create_session = function (arp_interface) {
 };
 
 //Function to register the node button
-var register = function(mac_addresses, arp_interface) {
+var register = function(mac_addresses, arp_interface, timeout) {
+    if (timeout === undefined || timeout === null) {
+     timeout = 5000;
+    }
     if (Array.isArray(mac_addresses)){
         //console.log("array detected")
     } else {
@@ -60,7 +63,7 @@ var register = function(mac_addresses, arp_interface) {
                              hex_to_int_array(mac_address))) {
                     readStream.emit('detected', mac_address);
                     just_emitted[mac_address] = true;
-                    setTimeout(function () { just_emitted[mac_address] = false; }, 3000);
+                    setTimeout(function () { just_emitted[mac_address] = false; }, timeout);
                 }                
             });
         }

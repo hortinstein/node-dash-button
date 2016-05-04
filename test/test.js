@@ -92,5 +92,14 @@ startTests = function() {
         }
         done();
     });
+    it('should adjust the timeout', function(done) {
+        try {
+            dash_button.register(hexes.first, null, 5000);
+            pcap.getSession().emit('packet', packets.bad);
+        } catch(err) {
+            throw new Error("Did not catch the error");
+        }
+        done();
+    });
 };
 startTests();
