@@ -24,7 +24,7 @@ pcap_session.on('packet', function(raw_packet) {
         console.log(possible_dash)
         if(manufacturer_directory.hasOwnProperty(possible_dash.slice(0,8).toString().toUpperCase().split(':').join('')
 )){
-          console.log("probable dash hardware address detected: ", possible_dash, "  Manufacturer: ", manufacturer_directory[possible_dash.slice(0,8).toString()]);
+          console.log("probable dash hardware address detected: ", possible_dash, "  Manufacturer: ", manufacturer_directory[possible_dash.slice(0,8).toString().toUpperCase().split(':').join('')]);
         } else {
           console.log("possible dash hardware address detected: ", possible_dash, "  Manufacturer: ", "unknown");
         }
