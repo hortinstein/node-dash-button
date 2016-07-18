@@ -5,7 +5,6 @@ process.env.NODE_ENV = 'test'
 
 var int_array_to_hex = require('../index.js').int_array_to_hex;
 var create_session = require('../index.js').create_session;
-var amazon_addresses = require('../static/amazon_addresses').amazon_addresses;
 var manufacturer_directory = require('../company_directory.js').company_directory;
 var pcap = require('pcap');
 var arp_interface = undefined;
