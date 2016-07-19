@@ -14,7 +14,7 @@ if (last_argument.indexOf('findbutton') === -1) {
 }
 var pcap_session = create_session(arp_interface);
 
-console.log("Watching for arp requests on your local network, please try to press your dash now\n Dash buttons should appear as manufactured by 'Amazon Technologies Inc.' ");
+console.log("Watching for arp requests on your local network, please try to press your dash now\nDash buttons should appear as manufactured by 'Amazon Technologies Inc.' ");
 
 pcap_session.on('packet', function(raw_packet) {
     var packet = pcap.decode.packet(raw_packet); //decodes the packet
