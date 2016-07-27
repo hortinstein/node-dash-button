@@ -9,7 +9,7 @@ var int_array_to_hex = require('./helpers.js').int_array_to_hex;
 
 var create_session = function (arp_interface) {
     try {
-        var session = pcap.createSession(arp_interface);
+        var session = pcap.createSession(arp_interface, 'arp');
     } catch (err) {
         console.error(err);
         console.error("Failed to create pcap session: couldn't find devices to listen on.\n" + "Try running with elevated privileges via 'sudo'");
