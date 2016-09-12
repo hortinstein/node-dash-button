@@ -92,7 +92,7 @@ dash.on("detected", function (){
 });
 ```
 
-**ARP, UDP or both**
+**ARP, UDP or both**:
 By default the protocol monitored is ARP, which is what the earlier buttons tend to use. Newer buttons however, are using UDP to make thier request. By setting protocol to 'arp', 'udp', or 'all' (both), you can optimise the script to your setup.
 
 Note: If your button was initially picked up using ARP, but is now not being picked up, it's possible that the button has switched to UDP.
