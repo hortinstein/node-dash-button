@@ -10,7 +10,7 @@ var int_array_to_hex = require('./helpers.js').int_array_to_hex;
 var create_session = function (iface, protocol) {
     var filter;
     switch(protocol) {
-        case 'both':
+        case 'all':
             filter = 'arp or ( udp and ( port 67 or port 68 ) )';
             break;
         case 'udp':

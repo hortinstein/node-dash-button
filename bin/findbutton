@@ -12,7 +12,7 @@ var last_argument = process.argv[process.argv.length - 1];
 if (last_argument.indexOf('findbutton') === -1) {
     iface = last_argument;
 }
-var pcap_session = create_session(iface);
+var pcap_session = create_session(iface, 'all');
 
 console.log("Watching for arp & udp requests on your local network, please try to press your dash now\nDash buttons should appear as manufactured by 'Amazon Technologies Inc.' ");
 
