@@ -51,7 +51,7 @@ startTests = function() {
         pcap.getSession().emit('packet', packets.first);
     });
     it('should recognize a udp request', function(done) {
-        dash_button.register(hexes.first, null, null 'udp').on('detected', function() {
+        dash_button.register(hexes.first, null, null, 'udp').on('detected', function() {
             done();
         });
         pcap.getSession().emit('packet', packets.udp);
