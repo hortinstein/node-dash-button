@@ -15,5 +15,9 @@ module.exports = {
     "bad": {
         'packet_payload_ethertype': 666,
         'packet_payload_payload_sender_ha_addr': hexes.first,
+    },
+    "udp": {
+        'packet_payload_ethertype': 2048,
+        'packet_payload_shost_addr': hexes.first,
     }
 };

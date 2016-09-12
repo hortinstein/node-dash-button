@@ -8,7 +8,7 @@ function pcap(){
 }
 pcap.prototype.createSession = function() {
     if (this.badMode === true) {
-        throw new Error("Error: pcap_findalldevs didn't find any devs [mocked]");        
+        throw new Error("Error: pcap_findalldevs didn't find any devs [mocked]");
     }
     //console.log("sending reference to fake event emitter")
     this.session = new events.EventEmitter();
@@ -29,13 +29,21 @@ pcap.prototype.decode.packet = function(packet) {
     var mock_packet = {
         "payload": {
             "ethertype": packet.packet_payload_ethertype,
-            "payload": {
-                "sender_ha": {
-                    "addr": hex_to_int_array(packet.packet_payload_payload_sender_ha_addr)
-                }
-            }
+            "payload": { }
         }
     };
+
+    if (packet.packet_payload_ethertype === 2048) {
+        mock_packet.payload.shost = {
+            addr: hex_to_int_array(packet.packet_payload_shost_addr)
+        };
+    }
+    else {
+        mock_packet.payload.payload.sender_ha = {
+            addr: hex_to_int_array(packet.packet_payload_payload_sender_ha_addr)
+        };
+    }
+
     return mock_packet;
 };
 pcap.prototype.enableBadMode = function() {
