@@ -44,12 +44,24 @@ startTests = function() {
         });
         pcap.getSession().emit('packet', packets.first);
     });
+    it('should recognize an arp request, when listening to \'all\' protocols', function(done) {
+        dash_button.register(hexes.first, null, null, 'all').on('detected', function() {
+            done();
+        });
+        pcap.getSession().emit('packet', packets.first);
+    });
+    it('should recognize a udp request', function(done) {
+        dash_button.register(hexes.first, null, null, 'udp').on('detected', function() {
+            done();
+        });
+        pcap.getSession().emit('packet', packets.udp);
+    });
     it('should not fire with more than 2 arp requests in 2 seconds', function(done) {
         dash_button.register(hexes.second).on('detected', function() {
             setTimeout(function() {
                 done();
             }, 50);
-            //console.log("should only see this once")        
+            //console.log("should only see this once")
         });
         for(count = 0; count < 10; count++) {
             //console.log("firing packet!");

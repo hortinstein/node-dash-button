@@ -7,25 +7,39 @@ var int_array_to_hex = require('../index.js').int_array_to_hex;
 var create_session = require('../index.js').create_session;
 var manufacturer_directory = require('../stor.js').manufacturer_directory;
 var pcap = require('pcap');
-var arp_interface = undefined;
+var iface = undefined;
 var last_argument = process.argv[process.argv.length - 1];
 if (last_argument.indexOf('findbutton') === -1) {
-    arp_interface = last_argument;
+    iface = last_argument;
 }
-var pcap_session = create_session(arp_interface);
+var pcap_session = create_session(iface, 'all');
 
-console.log("Watching for arp requests on your local network, please try to press your dash now\nDash buttons should appear as manufactured by 'Amazon Technologies Inc.' ");
+console.log("Watching for arp & udp requests on your local network, please try to press your dash now\nDash buttons should appear as manufactured by 'Amazon Technologies Inc.' ");
 
 pcap_session.on('packet', function(raw_packet) {
     var packet = pcap.decode.packet(raw_packet); //decodes the packet
-    if(packet.payload.ethertype === 2054) { //ensures it is an arp packet
-        possible_dash = packet.payload.payload.sender_ha.addr; //getting the hardware address of the possible dash
-        possible_dash = int_array_to_hex(possible_dash);
-        if(manufacturer_directory.hasOwnProperty(possible_dash.slice(0,8).toString().toUpperCase().split(':').join('')
-)){
-          console.log("Possible dash hardware address detected: ", possible_dash, "  Manufacturer: ", manufacturer_directory[possible_dash.slice(0,8).toString().toUpperCase().split(':').join('')]);
-        } else {
-          console.log("Possible dash hardware address detected: ", possible_dash, "  Manufacturer: ", "unknown");
+    if(packet.payload.ethertype === 2054 || packet.payload.ethertype === 2048) { //ensures it is an arp or udp packet
+        var protocol, possible_dash;
+        if (packet.payload.ethertype === 2054) {
+            protocol = 'arp';
+            possible_dash = packet.payload.payload.sender_ha.addr; //getting the hardware address of the possible dash
         }
+        else {
+            protocol = 'udp';
+            possible_dash =  packet.payload.shost.addr;
+        }
+        possible_dash = int_array_to_hex(possible_dash);
+
+        var log = 'Possible dash hardware address detected: {0} Manufacturer: {1} Protocol: {2}',
+            manufacturerKey = possible_dash.slice(0,8).toString().toUpperCase().split(':').join(''),
+            manufacturer;
+
+        if(manufacturer_directory.hasOwnProperty(manufacturerKey)) {
+          manufacturer = manufacturer_directory[manufacturerKey];
+        } else {
+          manufacturer = 'unknown';
+        }
+
+        console.log(log.replace('{0}', possible_dash).replace('{1}', manufacturer).replace('{2}', protocol));
     }
 });
