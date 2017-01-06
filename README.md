@@ -46,6 +46,19 @@ It will watch for new arp and udp requests on your network.  There may be severa
 Note: If your computer has multiple active network interfaces, `findbutton` will use the first one listed. If you need to overwrite this setting, pass your preferred interface
 as the first argument, such as `node bin/findbutton eth6`.
 
+#### Usage docs:
+
+``` js
+var dash_button = require('node-dash-button');
+var dash = dash_button(mac_addresses, iface, timeout, protocol);
+```
+
+- `mac_addresses` string or array of strings
+- `iface` the name of the interface on which to capture packets. If passed an empty string, libpcap will try to pick a "default" interface, which is often just the first one in some list and not what you want. (from [the node_pcap README](https://github.com/mranney/node_pcap))
+- `timeout` timeout between presses in ms, default `5000` (5 seconds)
+- `protocol` either `arp`, `udp`, or `all`. default `arp`
+
+
 #### Example Usage:
 
 **For a single dash**
