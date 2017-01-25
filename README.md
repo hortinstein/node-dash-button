@@ -2,6 +2,8 @@
 # node-dash-button
 [![Travis-CI Build Status](https://travis-ci.org/hortinstein/node-dash-button.svg)](https://travis-ci.org/hortinstein/node-dash-button)  [![Coverage Status](https://coveralls.io/repos/hortinstein/node-dash-button/badge.svg?branch=master&service=github)](https://coveralls.io/github/hortinstein/node-dash-button?branch=master)  [![gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg?style=flat)](https://gitter.im/hortinstein/node-dash-button)
 
+[![Join the chat at https://gitter.im/hortinstein/node-dash-button](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hortinstein/node-dash-button?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Place it. *Hack it.* Press it. ~~Get it.~~
 
 This module was inspired by [this fantastic article by Edward Bensen](https://medium.com/@edwardbenson/how-i-hacked-amazon-s-5-wifi-button-to-track-baby-data-794214b0bdd8).
