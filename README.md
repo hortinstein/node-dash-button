@@ -143,6 +143,7 @@ I collected a few examples I found on github of how people are using this module
 - [dash-hipchat-doorbell](https://github.com/Sfeinste/dash-hipchat-doorbell) quick and dirty node app that intercepts traffic from an amazon dash button and creates a hipchat notification (think doorbell)
 - [netflixandchill](https://github.com/sidho/netflixandchill) button to netflix and chill, dims the lights (no interface with netflix yet)
 - [dash-rickroll](https://github.com/girliemac/dash-rickroll/blob/8f0396c7fec871427fe016a2dd5787f07b1402cc/README.md) title explains it all
+- [wedashmo](https://github.com/bericp1/wedashmo) enables a dash button to toggle a Belkin WeMo Switch or Plug.
 
 #### To do
 - refactor
