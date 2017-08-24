@@ -34,7 +34,9 @@
   "devDependencies": {
     "arpjs": "^1.0.0",
     "autochecker": "^0.5.1",
+    "colors": "^1.1.2",
     "coveralls": "^2.11.4",
+    "csv-stream": "^0.1.3",
     "istanbul": "0.3.22",
     "mocha": "^2.3.0",
     "mockery": "^1.4.0",
