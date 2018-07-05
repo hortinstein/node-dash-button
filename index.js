@@ -74,21 +74,26 @@ var register = function(mac_addresses, iface, timeout, protocol) {
         for (var i = 0, l = mac_addresses.length; i < l; i++) {
             var mac_address = mac_addresses[i];
 
-            if((packet.payload.ethertype === 2054 //ensures it is an arp packet
-                    && _.isEqual(packet.payload.payload.sender_ha.addr,
-                        hex_to_int_array(mac_address)))
-                || (packet.payload.ethertype === 2048
-                    && _.isEqual(packet.payload.shost.addr,
-                        hex_to_int_array(mac_address)))) {
-                if (just_emitted[mac_address]) {
-                    break;
-                }
+            //sometimes the object properties referenced below throw exceptions because their parent object is undefined
+            try {
+                  if((packet.payload.ethertype === 2054 //ensures it is an arp packet
+                          && _.isEqual(packet.payload.payload.sender_ha.addr,
+                              hex_to_int_array(mac_address)))
+                      || (packet.payload.ethertype === 2048
+                          && _.isEqual(packet.payload.shost.addr,
+                              hex_to_int_array(mac_address)))) {
+                      if (just_emitted[mac_address]) {
+                          break;
+                      }
 
-                readStream.emit('detected', mac_address);
-                just_emitted[mac_address] = true;
-                setTimeout(function () { just_emitted[mac_address] = false; }, timeout);
+                      readStream.emit('detected', mac_address);
+                      just_emitted[mac_address] = true;
+                      setTimeout(function () { just_emitted[mac_address] = false; }, timeout);
 
-                break;
+                      break;
+                  }
+            } catch (err) {
+                //console.error(err);
             }
         }
     });
